@@ -23,15 +23,15 @@ function playersInit() {
   const players = []
 
   // Savage
-  player = createPlayer('red', 'Savage', 'accepted')
+  player = createPlayer('Red', 'Savage', 'accepted')
   players.push(player)
 
   // Lordiggs
-  player = createPlayer('cyan', 'Lordiggs', 'invited')
+  player = createPlayer('Cyan', 'Lordiggs', 'invited')
   players.push(player)
 
   // Timmahhh
-  player = createPlayer('pink', 'Timahhh', 'declined')
+  player = createPlayer('Pink', 'Timahhh', 'declined')
   players.push(player)
 
   
