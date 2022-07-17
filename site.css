@@ -129,10 +129,11 @@ h1 {
     margin: 2em 0;
     font-family: "vcr_osd_monoregular";
     text-align: center;
-    width: 400px;
+    width: 600px;
     border: 1px solid white;
     border-radius: 10px;
     background-color: #000;
+    font-size: 1.5em;
 }
 
 #content2Text p {
