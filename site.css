@@ -33,15 +33,6 @@
     border-color: #00ff00;
 }
 
-#content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-
 @font-face {
     font-family: 'in_your_face_joffrey_medium';
     src: url('joffrey-webfont.woff2') format('woff2'),
@@ -106,7 +97,7 @@ h1 {
     justify-content: center;
 }
 
-#content1 {
+#invited {
     display: flex;
     width: 100%;
     color: #fff;
@@ -115,7 +106,7 @@ h1 {
     justify-content: center;
 }
 
-#content2 {
+#info {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -123,30 +114,29 @@ h1 {
     color: white;
 }
 
-#content2Text {
+#infoText {
     display: flex;
     flex-direction: column;
     margin: 2em 0;
     font-family: "vcr_osd_monoregular";
     text-align: center;
-    width: 600px;
+    width: 550px;
     border: 1px solid white;
     border-radius: 10px;
     background-color: #000;
     font-size: 1.5em;
 }
 
-#content2Text p {
+#infoText p {
     margin: 1em 0;
 }
 
-#content2Button {
+#discord {
     display: flex;
     justify-content: center;
 }
 
 #attendees {
-    
     width: 100%;
     padding: 1em;
     display: flex;
@@ -161,6 +151,7 @@ h1 {
     border-radius: 10px;
     margin: 1em;
     position: relative;
+    color: white;
 }
 
 .attendee span {
@@ -169,9 +160,6 @@ h1 {
     width: 100%;
     justify-content: center;
     align-items: center;
-    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-    -webkit-text-stroke-width: 1.5px;
-    -webkit-text-stroke-color: black;
     font-size:2em;
     font-weight: bold;
 }
@@ -187,13 +175,20 @@ h1 {
     max-height: 30px;
 }
 
+
+.beanDeclined {
+    filter: brightness(50%);
+}
+
+.strokeme {
+    
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  }
+
+  
 .declined {
     color: gray;
     background-color: gray;
     border-radius: 10px;
-    -webkit-text-fill-color: gray; /* Will override color (regardless of order) */
-}
-
-.beanDeclined {
-    filter: brightness(50%);
+    
 }

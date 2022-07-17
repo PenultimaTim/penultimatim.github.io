@@ -57,7 +57,7 @@ function playersInit() {
       newHtml +
       "<img class='bean bean" + player.status + "' src='bean" +
       player.color +
-      ".png' /><span class='" + player.status + "'>" +
+      ".png' /><span class='strokeme " + player.status + "'>" +
       player.name +
       '</span>'
 
