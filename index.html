@@ -1,8 +1,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <title>Testing Title</title>
+    <title>Among Us</title>
+    <link rel="stylesheet" href="site.css">
 </head>
+
 <body>
-    Testing Body
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <div id="muteButton" onclick="playBackgroundMusic();"><img id="audioImg" src="audioOff.png" alt="Audio Toggle" />
+    </div>
+    <div id="titleRow">
+        <div id="titleImage"><img src="amongUsTitle.png" /></div>
+    </div>
+    <div id="content">
+        <div id="contentRow">
+            <div id="content1">You're invited!</div>
+            <div id="content2">
+                <div style="width: 100%; display: flex; justify-content: center;">
+                    <div id="content2text">
+                        <p>Come join us for a game of Among Us!</p>
+                        <p>We'll clean some vents, blow up some asteroids, and maybe ... just maybe ... there will be a
+                            MURDER!
+                            (or lots)</p>
+                        <p>There are lots of new things in the game to play with - levels, meeting backgrounds, ROLES?!
+                        </p>
+                        <p>When: Friday, December 1, 1989</p>
+                    </div>
+                </div>
+                <div id="content2Button">
+                    <a href="#" class="amongUsButton" onmouseover="playClick();">DISCORD</a>
+                </div>
+            </div>
+            <div id="attendees">
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <script src="site.js"></script>
 </body>
+
 </html>
