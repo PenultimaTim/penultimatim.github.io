@@ -117,7 +117,7 @@ h1 {
 #infoText {
     display: flex;
     flex-direction: column;
-    margin: 2em 0;
+    margin-top: 1em;
     font-family: "vcr_osd_monoregular";
     text-align: center;
     width: 550px;
@@ -152,6 +152,11 @@ h1 {
     margin: 1em;
     position: relative;
     color: white;
+    border: 3px solid white;
+}
+
+.attendee:hover {
+    border: 3px solid yellow;
 }
 
 .attendee span {
@@ -176,7 +181,7 @@ h1 {
 }
 
 
-.beanDeclined {
+.beanRejected {
     filter: brightness(50%);
 }
 
@@ -185,10 +190,32 @@ h1 {
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
 
-  
-.declined {
+
+.rejected {
     color: gray;
     background-color: gray;
     border-radius: 10px;
-    
+    border: 1px solid grey;
+}
+
+    .rejected:hover {
+        border: 1px solid grey;
+    }
+
+.floatingBeanContainer {
+    display: none;
+}
+
+.floatingBeanContainer img {
+    width: 100px;
+}
+
+#ejection {
+    text-align: center;
+    width: 100%;
+    margin: 1em 0;
+    font-family: "vcr_osd_monoregular";
+    font-size: 1.5em;
+    line-height: 1.5em;
+    height: 1.5em;
 }

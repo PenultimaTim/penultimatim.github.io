@@ -11,6 +11,9 @@ const ctx = canvas.getContext('2d')
 const speed = 0.5
 canvas.width = width
 canvas.height = height
+var beanIsFloating = false;
+
+const ejectionDiv = document.getElementById("ejection");
 
 function createPlayer(color, name, status) {
   const player = { color: color, name: name, status: status }
@@ -22,36 +25,58 @@ function playersInit() {
   let newHtml = ''
   const players = []
 
-  // Savage
-  player = createPlayer('Red', 'Savage', 'accepted')
-  players.push(player)
-
-  // Lordiggs
-  player = createPlayer('Cyan', 'Lordiggs', 'invited')
-  players.push(player)
-
-  // Timmahhh
-  player = createPlayer('Pink', 'Timahhh', 'declined')
-  players.push(player)
-
   
+    player = createPlayer('Red', 'Savage', 'invited')
+    players.push(player)
+  
+    player = createPlayer('Coral', 'Lordiggs', 'accepted')
+    players.push(player)
+
+    player = createPlayer('Pink', 'Timmmahh', 'accepted')
+    players.push(player)
+
+    player = createPlayer('Green', 'AiMani', 'invited')
+    players.push(player)
+
+    player = createPlayer('Purple', 'Tyler', 'invited')
+    players.push(player)
+
+    player = createPlayer('Lime', 'FuFu', 'invited')
+    players.push(player)
+
+    player = createPlayer('Black', 'Meathooks', 'invited')
+    players.push(player)
+
+    player = createPlayer('Yellow', 'Baaaaa', 'invited')
+    players.push(player)
+
+    player = createPlayer('Purple', 'Ashley', 'invited')
+    players.push(player)
+
+    player = createPlayer('Cyan', 'Mimi', 'invited')
+    players.push(player)
+
+    player = createPlayer('Orange', 'Nick', 'invited')
+    players.push(player)
+
+    player = createPlayer('Blue', 'Galaxy', 'invited')
+    players.push(player)
+
+    player = createPlayer('Banana', 'Olly', 'accepted')
+    players.push(player)
+
+    player = createPlayer('Black', 'Daisuke', 'invited')
+    players.push(player)
+
+    player = createPlayer('White', 'Joe', 'invited')
+    players.push(player)
 
 
-
-
-
-
-
-
-
-
-
-
-
+    players.sort(dynamicSortMultiple("status", "name"));
 
 
   players.forEach(function (player) {
-    newHtml = newHtml + "<div class='attendee " + player.status + "'>"
+      newHtml = newHtml + "<div class='attendee " + player.status + "' onmouseover='playClick()' onclick='voteOut(\"" + player.color + "\", \"" + player.name + "\");'>"
 
     newHtml =
       newHtml +
@@ -63,7 +88,11 @@ function playersInit() {
 
     if (player.status == 'accepted') {
       newHtml = newHtml + "<img class='thumbsup' src='accepted.png' />"
-    }
+      }
+
+      if (player.status == 'rejected') {
+          newHtml = newHtml + "<img class='thumbsup' src='x.png' />"
+      }
 
     newHtml = newHtml + '</div>'
   })
@@ -72,6 +101,41 @@ function playersInit() {
 }
 
 let players = playersInit()
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a, b) {
+        /* next line works with strings and numbers, 
+         * and you may want to customize it to your needs
+         */
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+
+function dynamicSortMultiple() {
+    /*
+     * save the arguments object as it will be overwritten
+     * note that arguments object is an array-like object
+     * consisting of the names of the properties to sort by
+     */
+    var props = arguments;
+    return function (obj1, obj2) {
+        var i = 0, result = 0, numberOfProperties = props.length;
+        /* try getting a different result from 0 (equal)
+         * as long as we have extra properties to compare
+         */
+        while (result === 0 && i < numberOfProperties) {
+            result = dynamicSort(props[i])(obj1, obj2);
+            i++;
+        }
+        return result;
+    }
+}
 
 function createStar(x, y) {
   let radius = randomBetween(1, 3)
@@ -97,7 +161,28 @@ function starsInit() {
   return stars
 }
 
-let stars = starsInit()
+
+
+function voteOut(color, name) {
+    if (!beanIsFloating) {
+        // Set Color
+
+
+        // Set name
+        ejectionDiv.innerHTML = name + " was ejected.";
+
+        // Set true
+        beanIsFloating = true;
+    }
+}
+
+function floatingBeanInit() {
+    var img = document.getElementById("floatingBean");
+    return img;
+}
+
+let floatingBean = floatingBeanInit();
+let stars = starsInit();
 
 function render() {
   ctx.fillStyle = backgroundColor
@@ -111,9 +196,14 @@ function render() {
     ctx.arc(x, y, r, 0, Math.PI * 2)
     ctx.fill()
   })
+
+    ctx.drawImage(floatingBean, beanX, canvas.height / 2);
 }
 
 setInterval(run, 10)
+
+var testNum = 0;
+var beanX = -187;
 
 function run() {
   stars.forEach(function (star) {
@@ -123,7 +213,21 @@ function run() {
     star.x = star.x - star.speed
   })
 
-  render()
+
+    if (beanIsFloating) {
+        console.log(canvas.width);
+        testNum++;
+
+        beanX = beanX + (6)
+
+        if (beanX >= canvas.width) {
+            ejectionDiv.innerHTML = "";
+            beanIsFloating = false;
+            beanX = -187;
+        }
+    }
+    
+    render();
 }
 
 function randomBetween(min, max) {
