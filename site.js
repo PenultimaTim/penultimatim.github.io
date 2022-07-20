@@ -161,10 +161,17 @@ function starsInit() {
   return stars
 }
 
-
+let votePink = false;
 
 function voteOut(color, name) {
-    if (!beanIsFloating) {
+    if (!beanIsFloating && !votePink) {
+        if (color.toUpperCase() == "PINK") {
+            ejectionDiv.innerHTML = "You cannot vote Pink out!";
+            votePink = true;
+            return;
+        }
+
+
         // Set Color
 
 
@@ -202,7 +209,7 @@ function render() {
 
 setInterval(run, 10)
 
-var testNum = 0;
+var pinkCount = -187;
 var beanX = -187;
 
 function run() {
@@ -213,10 +220,18 @@ function run() {
     star.x = star.x - star.speed
   })
 
+    if (votePink) {
+        pinkCount = pinkCount + (6)
+
+        if (pinkCount >= canvas.width) {
+            ejectionDiv.innerHTML = "";
+            votePink = false;
+            pinkCount = -187;
+        }
+    }
 
     if (beanIsFloating) {
         console.log(canvas.width);
-        testNum++;
 
         beanX = beanX + (6)
 
