@@ -166,7 +166,7 @@ let votePink = false;
 function voteOut(color, name) {
     if (!beanIsFloating && !votePink) {
         if (color.toUpperCase() == "PINK") {
-            ejectionDiv.innerHTML = "You cannot vote Pink out!";
+            ejectionDiv.innerHTML = "Pffft, you can't vote Pink out.";
             votePink = true;
             return;
         }
