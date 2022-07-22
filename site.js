@@ -62,13 +62,13 @@ function playersInit() {
     player = createPlayer('Blue', 'Galaxy', 'invited')
     players.push(player)
 
-    player = createPlayer('Banana', 'Olly', 'accepted')
+    player = createPlayer('Banana', 'Oliver', 'accepted')
     players.push(player)
 
     player = createPlayer('Black', 'Daisuke', 'invited')
     players.push(player)
 
-    player = createPlayer('White', 'Joe', 'rejected')
+    player = createPlayer('White', 'Joe', 'invited')
     players.push(player)
 
 
