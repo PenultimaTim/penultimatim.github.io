@@ -16,7 +16,7 @@ var beanIsFloating = false;
 const ejectionDiv = document.getElementById("ejection");
 
 function createPlayer(color, name, status) {
-  const player = { color: color, name: name, status: status }
+  const player = { color: color, name: name, status: status, imposter: false, ejected: false }
   return player
 }
 
@@ -68,15 +68,31 @@ function playersInit() {
     player = createPlayer('Black', 'Daisuke', 'invited')
     players.push(player)
 
-    player = createPlayer('White', 'Joe', 'invited')
+    player = createPlayer('White', 'Joe', 'rejected')
     players.push(player)
 
 
     players.sort(dynamicSortMultiple("status", "name"));
 
+    var imposter1 = randomBetween(0, players.length - 1);
 
-  players.forEach(function (player) {
-      newHtml = newHtml + "<div class='attendee " + player.status + "' onmouseover='playClick()' onclick='voteOut(\"" + player.color + "\", \"" + player.name + "\");'>"
+    var imposter2 = imposter1;
+
+    while (imposter2 == imposter1) {
+        imposter2 = randomBetween(0, players.length - 1);
+    }
+
+    players[imposter1].imposter = true;
+    players[imposter2].imposter = true;
+
+
+
+
+    players.forEach(function (player) {
+        if (player.status.toUpperCase() == "REJECTED") {
+            player.ejected = true;
+        }
+      newHtml = newHtml + "<div class='attendee " + player.status + "' onmouseover='playClick()' onclick='voteOut(\"" + player.color + "\", \"" + player.name + "\", \"" + player.imposter + "\", \"" + player.ejected + "\");'>"
 
     newHtml =
       newHtml +
@@ -163,28 +179,74 @@ function starsInit() {
 
 let votePink = false;
 
-function voteOut(color, name) {
+function voteOut(color, name, imposter, ejected) {
     if (!beanIsFloating && !votePink) {
         if (color.toUpperCase() == "PINK") {
-            ejectionDiv.innerHTML = "Pffft, you can't vote Pink out.";
+            message = "Pffft, you can't vote Pink out.";
+            buildMessage(message);
+            //ejectionDiv.innerHTML = "Pffft, you can't vote Pink out.";
             votePink = true;
             return;
         }
 
-
         // Set Color
-
+        floatingBean.src = "floatingBean" + color + ".png";
 
         // Set name
-        ejectionDiv.innerHTML = name + " was ejected.";
+        message = name + " was ejected.";
+        if (imposter.toUpperCase() == "TRUE") {
+            message = message + " " + name + " was the imposter.";
+        }
+        else
+        {
+            message = message + " " + name + " was NOT the imposter.";
+        }
+
+        buildMessage(message);
+        //ejectionDiv.innerHTML = message;
+        
 
         // Set true
         beanIsFloating = true;
     }
 }
 
+function buildMessage(message) {
+    playTextAppear();
+    const messageLength = message.length;
+    const timeTaken = 1500;
+    const msPerLetter = timeTaken / messageLength;
+
+    const startTime = Date.now();
+    var lastLetterTime = startTime;
+    var lettersShown = 1;
+
+    var visibleMessage = message.substring(0, lettersShown);
+
+    var myInterval = setInterval(function () {
+        var currentTime = Date.now();
+
+        if (currentTime - lastLetterTime >= msPerLetter) {
+            // Show New Letter
+            lettersShown++;
+            visibleMessage = message.substring(0, lettersShown);
+            ejectionDiv.innerHTML = visibleMessage;
+            lastLetterTime = currentTime;
+        }
+
+
+        if (lettersShown >= message.length) {
+            clearInterval(myInterval);
+        }
+    }, 1);
+
+
+    
+}
+
 function floatingBeanInit() {
     var img = document.getElementById("floatingBean");
+    img.src = "floatingBeanYellow.png";
     return img;
 }
 
@@ -231,7 +293,6 @@ function run() {
     }
 
     if (beanIsFloating) {
-        console.log(canvas.width);
 
         beanX = beanX + (6)
 
@@ -274,8 +335,14 @@ function playClick() {
   }
 }
 
+function playTextAppear() {
+    if (audioEnabled) {
+        const audioDeedle = new Audio('textAppear.mp3');
+        audioDeedle.play();
+    }
+}
+
 window.onresize = function () {
-  console.log('here')
   width = window.innerWidth
   height = window.innerHeight
 
