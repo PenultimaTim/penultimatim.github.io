@@ -228,3 +228,7 @@ h1 {
     font-size: 1.5em;
     height: 1em;   
 }
+
+.hidden {
+    display: none;
+}
